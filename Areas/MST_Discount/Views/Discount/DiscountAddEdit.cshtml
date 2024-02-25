@@ -1,0 +1,88 @@
+﻿@using System.Data
+@using Inventory_management_system.Areas.MST_Discount.Models;
+@using Inventory_management_system.Areas.MST_Product.Models;
+@model DiscountModel;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex flex-row justify-content-between" style="margin-bottom:20px">
+
+    <div class="pagetitle">
+        <h3>Discount Add & Edit</h3>
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-body">
+
+        <form class="form-sample mt-4" method="post" asp-area="MST_Discount" asp-controller="Discount" asp-action="DiscountAddEditMethod">
+            @Html.HiddenFor(x=>x.DiscountID)
+            <div class="row d-lg-flex flex-row justify-content-around ">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">Amount</label>
+                        <input type="text" class="form-control" value="@Model.Amount" asp-for="Amount" />
+                        <span asp-validation-for="Amount" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">ProductName</label>
+                        <select class="form-select" style="margin-top:0px;width:500px;height:46px;" id="ProductID" name="ProductID" asp-for="@Model.ProductID">
+                            <option value="" class="">- - - </option>
+                            @foreach (ProductModel ProductName in ViewBag.Productlist)
+                            {
+                                <option value="@ProductName.ProductID">@ProductName.ProductName</option>
+                            }
+                        </select>
+                        <span asp-validation-for="ProductID" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="row d-lg-flex flex-row justify-content-around ">
+         
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">StartDate</label>
+                        <input type="text" class="form-control" value="@Model.StartDate" asp-for="StartDate" />
+                        <span asp-validation-for="StartDate" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                        <span class ="font-green-sharp" style="font-size:13px ; color:red">@TempData["StartDate"]</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">EndDate</label>
+                        <input type="text" class="form-control" value="@Model.EndDate" asp-for="EndDate" />
+                        <span asp-validation-for="EndDate" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                        <span class="font-green-sharp" style="font-size:13px ; color:red">@TempData["EndDate"]</span>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex flex-row" style="margin-left:72px">
+                <input type="hidden" name="DiscountID" value="@Model.DiscountID" />
+                <button type="submit" value="Save" class="btn bg-primary text-white mb-2 mt-3">Save</button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

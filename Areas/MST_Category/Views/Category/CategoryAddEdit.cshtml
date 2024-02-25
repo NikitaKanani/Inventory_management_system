@@ -1,0 +1,45 @@
+﻿@using System.Data
+@using Inventory_management_system.Areas.MST_Category.Models;
+@model CategoryModel;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex flex-row justify-content-between" style="margin-bottom:20px">
+
+    <div class="pagetitle">
+        <h3>Category Add & Edit</h3>
+    </div>
+
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form class="form-sample mt-4" method="post" asp-area="MST_Category" asp-controller="Category" asp-action="CategoryAddEditMethod">
+            <div class="row d-flex flex-row justify-content-between" style="padding-left:80px">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="form-label">Category Name</label>
+                        <input type="text" class="form-control" value="@Model.CategoryName" asp-for="CategoryName" />
+                        <span asp-validation-for="CategoryName" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex flex-row" style="margin-left:65px">
+                <input type="hidden" name="CategoryID" value="@Model.CategoryID" />
+                <button type="submit" value="Save" class="btn bg-primary text-white mb-2 mt-3">Save</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

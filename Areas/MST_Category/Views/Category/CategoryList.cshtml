@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.Data;
+@model DataTable;
+
+<div class="d-flex flex-row justify-content-between" style="margin-bottom:20px">
+
+    <div class="pagetitle">
+        <h3>Category List</h3>
+    </div>
+
+    <div>
+        <a class="btn bg-success text-white" asp-area="MST_Category" asp-controller="Category" asp-action="CategoryAddEdit">Add</a>
+    </div>
+
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <table class="table table-light table-striped table-borderless text-center mt-3">
+            <thead class="table-light">
+            <th>Category Name</th>
+            <th colspan="2">Action</th>
+            </thead>
+            <tbody id="sample_2">
+                @foreach (DataRow dr in Model.Rows)
+                {
+                    <tr>
+                        <form method="post" asp-action="MST_Category" asp-controller="Category" asp-action="CategorySelectByID">
+                            <input type="hidden" name="CategoryID" value="@int.Parse(dr["CategoryID"].ToString())" />
+                        </form>
+                        <td>@dr["CategoryName"]</td>
+                        <td>
+                            <form method="post" asp-area="MST_Category" asp-controller="Category" asp-action="CategoryAddEdit" asp-route-CategoryID="@dr["CategoryID"]">
+                                <button type="submit" value="Edit" class="btn bg-warning text-dark align-text-center pr-7 pl-7">Edit</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

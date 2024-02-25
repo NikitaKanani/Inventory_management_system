@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.Data;
+@model DataTable;
+
+<div class="d-flex flex-row justify-content-between" style="margin-bottom:20px">
+
+    <div class="pagetitle">
+        <h3>Product List</h3>
+    </div>
+
+    <div>
+        <a class="btn bg-success text-white" asp-area="MST_Product" asp-controller="Product" asp-action="ProductAddEdit">
+            Add
+        </a>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-body">
+
+        <table class="table table-light table-striped table-borderless text-center mt-3 table-responsive">
+            <thead class="table-light">
+            <th>Product Name</th>
+            <th>Category Name</th>
+            <th>Company Name</th>
+            <th>Purchase Price</th>
+            <th>Selling Price</th>
+            <th>TexAmount</th>
+            <th>Description</th>
+            <th>Availables</th>
+            <th>Insertion Date</th>
+            <th colspan="2">Action</th>
+            </thead>
+            <tbody id="sample_2">
+                @foreach (DataRow dr in Model.Rows)
+                {
+                    <tr>
+                        <form method="post" asp-action="MST_Company" asp-controller="Company" asp-action="CompanySelectByID">
+                            <input type="hidden" name="CompanyID" value="@int.Parse(dr["CompanyID"].ToString())" />
+                        </form>
+                        <td>@dr["ProductName"]</td>
+                        <td>@dr["CategoryName"]</td>
+                        <td>@dr["CompanyName"]</td>
+                        <td>@dr["PurchasePrice"]</td>
+                        <td>@dr["SellingPrice"]</td>
+                        <td>@dr["TexAmount"]</td>
+                        <td>@dr["Description"]</td>
+                        <td>@dr["Availables"]</td>
+                        <td>@dr["InsertionDate"]</td>
+                        <td>
+                            <form method="post" asp-area="MST_Product" asp-controller="Product" asp-action="ProductAddEdit" asp-route-ProductID="@dr["ProductID"]">
+                                <button type="submit" value="Edit" class="btn bg-warning text-dark align-text-center pr-7 pl-7">Edit</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

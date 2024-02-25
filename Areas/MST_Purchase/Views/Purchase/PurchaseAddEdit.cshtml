@@ -1,0 +1,118 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using System.Data;
+@using Inventory_management_system.Areas.MST_Company.Models;
+@using Inventory_management_system.Areas.MST_Purchase.Models;
+@using Inventory_management_system.Areas.MST_Vendor.Models;
+@model PurchaseModel;
+
+<div class="d-flex flex-row justify-content-between" style="margin-bottom:20px">
+
+    <div class="pagetitle">
+        <h3>Purchase Add & Edit</h3>
+    </div>
+</div>
+
+<div class="card">
+
+    <div class="card-body">
+
+        <form class="form-sample mt-4" method="post" asp-area="MST_Purchase" asp-controller="Purchase" asp-action="PurchaseAddEditMethod">
+            @Html.HiddenFor(x=>x.PurchaseID)
+            <div class="row d-lg-flex flex-row justify-content-around ">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">Purchase Date</label>
+                        <input type="text" class="form-control" value="@Model.PurchaseDate" asp-for="PurchaseDate" placeholder="Purchase Date" />
+                        <span asp-validation-for="PurchaseDate" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+
+                    </div>
+                </div>
+                @*<div class="col-md-4">
+                <div class="form-group row">
+                <label class="form-label">TotalAmount</label>
+                <input type="text" class="form-control" value="@Model.TotalAmount" asp-for="TotalAmount" placeholder="TotalAmount" />
+                <span asp-validation-for="TotalAmount" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                </div>
+                </div>*@
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">VendorName</label>
+                        <select class="form-select" style="margin-top:0px;width:500px;height:46px;" id="VendorID" name="VendorID" asp-for="@Model.VendorID">
+                            <option value="" class="" style="font-family:monospace;"></option>
+                            @foreach (VendorModel VendorName in ViewBag.Vendorlist)
+                            {
+                                <option value="@VendorName.VendorID">@VendorName.VendorName</option>
+                            }
+                        </select>
+                        <span asp-validation-for="@Model.VendorID" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="row d-lg-flex flex-row justify-content-around ">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">PaymentStatus</label>
+                        <input type="text" class="form-control" value="@Model.PaymentStatus" asp-for="PaymentStatus" placeholder="PaymentStatus" />
+                        <span asp-validation-for="PaymentStatus" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+
+                    </div>
+
+                    @*                    <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">PaymentStatus</label>
+                    <div class="col-sm-4">
+                    <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios1" value="@Model.PaymentStatus" asp-for="PaymentStatus" placeholder="PaymentStatus" />
+                    <span asp-validation-for="PaymentStatus" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+
+                    Paid
+                    </label>
+                    </div>
+                    </div>
+                    <div class="col-sm-5">
+                    <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios2" value="@Model.PaymentStatus" asp-for="PaymentStatus" placeholder="PaymentStatus" />
+                    <span asp-validation-for="PaymentStatus" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+
+                    Panding
+                    </label>
+                    </div>
+                    </div>
+
+                    </div>
+                    *@
+
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">DueDate</label>
+                        <input type="text" class="form-control" value="@Model.DueDate" asp-for="DueDate" placeholder="DueDate" />
+                        <span asp-validation-for="DueDate" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row d-flex flex-row" style="margin-left:72px">
+                <input type="hidden" name="PurchaseID" value="@Model.PurchaseID" />
+                <button type="submit" value="Save" class="btn bg-primary text-white mb-2 mt-3">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

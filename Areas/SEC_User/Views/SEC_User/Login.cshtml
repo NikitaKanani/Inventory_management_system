@@ -1,0 +1,59 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using System.Data;
+@using Inventory_management_system.Areas.SEC_User.Models;
+@model SEC_UserModel
+
+
+<div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-center auth px-0">
+            <div class="row w-100 mx-0">
+                <div class="col-lg-4 mx-auto">
+                    <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+
+                        <div class="brand-logo">
+                            <img src="../../images/logo.svg" alt="logo">
+                        </div>
+                        <h4>Hello! let's get started</h4>
+                        <h6 class="font-weight-light">Sign in to continue.</h6>
+
+                        <form class="pt-3" asp-area="SEC_User" asp-controller="SEC_User" asp-action="Login">
+
+                            <div class="form-group my-3">
+                                <input type="text" id="inputUserName" class="form-control form-control-lg" asp-for="UserName" placeholder="UserName">
+                                <span asp-validation-for="UserName" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                            </div>
+
+                            <div class="form-group my-3">
+                                <input type="password" id="inputPassword" class="form-control form-control-lg" asp-for="Password" placeholder="Password">
+                                 <span asp-validation-for="Password" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                            </div>
+
+                            <span class="font-green-sharp" style="font-size:13px ; color:red">@TempData["Error"]</span>
+                      
+                            <div class="mt-4">
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+                            </div>
+                            <div class="mt-2">
+                                <Span class="font-weight-light ml-3">Want to create a new account ?</Span>
+                                <a style="color:#3f3e91; font-weight:600  " asp-area="SEC_User" asp-controller="SEC_User" asp-action="Registration">Sign Up</a>
+                            </div>
+                           
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

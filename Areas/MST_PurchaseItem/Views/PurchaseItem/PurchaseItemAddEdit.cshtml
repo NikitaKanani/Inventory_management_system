@@ -1,0 +1,131 @@
+﻿@using System.Data
+@using Inventory_management_system.Areas.MST_Category.Models;
+@using Inventory_management_system.Areas.MST_Company.Models;
+@using Inventory_management_system.Areas.MST_Item.Models;
+@using Inventory_management_system.Areas.MST_Product.Models;
+@model ItemModel;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex flex-row justify-content-between" style="margin-bottom:20px">
+
+    <div class="pagetitle">
+        <h3>Item Add & Edit</h3>
+    </div>
+</div>
+
+
+<div class="card">
+
+    <div class="card-body">
+
+        <form class="form-sample mt-4" method="post" asp-area="MST_Item" asp-controller="Item" asp-action="ItemAddEditMethod">
+
+            <div class="row d-flex flex-row justify-content-around ">
+                <div class="col-md-4">
+
+                    <div class="form-group row">
+                        <label class="form-label">CompanyName</label>
+                        <select class="form-select" style="margin-top:0px;width:500px;height:46px;" id="CompanyID" onchange="funOnStateChange()" name="CompanyID" asp-for="@Model.CompanyID">
+                            <option value="" class="">- - - </option>
+                            @foreach (CompanyModel CompanyName in ViewBag.Companylist)
+                            {
+                                <option value="@CompanyName.CompanyID">@CompanyName.CompanyName</option>
+                            }
+                        </select>
+                        <span asp-validation-for="CompanyID" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+
+                    <div class="form-group row">
+                        <label class="form-label">CategoryName</label>
+                        <select class="form-select" style="margin-top:0px;width:500px;height:46px;" id="CategoryID" name="CategoryID" asp-for="@Model.CategoryID">
+                            <option value="" class="">- - - </option>
+                            @foreach (CategoryModel CategoryName in ViewBag.Categorylist)
+                            {
+                                <option value="@CategoryName.CategoryID">@CategoryName.CategoryName</option>
+                            }
+                        </select>
+                        <span asp-validation-for="CategoryID" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row d-flex flex-row justify-content-around ">
+                <div class="col-md-4">
+
+                    <div class="form-group row">
+                        <label class="form-label">ProductName</label>
+                        <select class="form-select" style="margin-top:0px;width:500px;height:46px;" id="ProductID" name="ProductID" asp-for="@Model.ProductID">
+                            <option value="" class="">- - - </option>
+                            @foreach (ProductModel ProductName in ViewBag.Productlist)
+                            {
+                                <option value="@ProductName.ProductID">@ProductName.ProductName</option>
+                            }
+                        </select>
+                        <span asp-validation-for="ProductID" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                    </div>
+
+
+
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">Serial Number</label>
+                        <input type="text" class="form-control" value="@Model.SerialNumber" asp-for="SerialNumber" />
+                        <span asp-validation-for="SerialNumber" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex flex-row" style="margin-left:72px">
+                <input type="hidden" name="ItemID" value="@Model.ItemID" />
+                <button type="submit" value="Save" class="btn bg-primary text-white mb-2 mt-3">Save</button>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+<script>
+    function funOnStateChange() {
+        var CompanyID = $("#selectedCompany").val();
+
+        $("#selectedProduct").empty();
+        $("#selectedProduct").append($("<option></option>").val("").html("Select Product"));
+        if (CompanyID !== "") {
+            $.ajax(
+                {
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: "@Url.Action("ProductsForComboBox","Item")" + "?&CompanyID=" + CompanyID,
+                    data: {},
+                    dataType: "json",
+                    success: function (Result) {
+
+                        $.each(Result, function (key, value) {
+
+                            $("#selectedProduct").append($("<option></option>").val(value.ProductID).html(value.ProductName));
+                        });
+                    },
+                    error: function (err) {
+                        alert("Error white fetch data");
+                    }
+                }
+            )
+        }
+    }
+</script>
+

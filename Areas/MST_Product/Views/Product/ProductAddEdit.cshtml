@@ -1,0 +1,135 @@
+﻿@using System.Data
+@using Inventory_management_system.Areas.MST_Category.Models;
+@using Inventory_management_system.Areas.MST_Company.Models;
+@using Inventory_management_system.Areas.MST_Product.Models;
+@model ProductModel;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex flex-row justify-content-between" style="margin-bottom:20px">
+
+    <div class="pagetitle">
+        <h3>Product Add & Edit</h3>
+    </div>
+</div>
+
+<div class="card">
+
+    <div class="card-body">
+
+        <form class="form-sample mt-4" method="post" asp-area="MST_Product" asp-controller="Product" asp-action="ProductAddEditMethod">
+            @Html.HiddenFor(x=>x.ProductID)
+            <div class="row d-lg-flex flex-row justify-content-around ">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">Product Name</label>
+                        <input type="text" class="form-control" value="@Model.ProductName" asp-for="ProductName" placeholder="Availables" />
+                        <span asp-validation-for="ProductName" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">CategoryName</label>
+                        <select class="form-select" style="margin-top:0px;width:500px;height:46px;" id="CategoryID" name="CategoryID" asp-for="@Model.CategoryID">
+                            <option value="" class="" style="font-family:monospace;"></option>
+                            @foreach (CategoryModel CategoryName in ViewBag.Categorylist)
+                            {
+                                <option value="@CategoryName.CategoryID">@CategoryName.CategoryName</option>
+                            }
+                        </select>
+                        <span asp-validation-for="@Model.CategoryID" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row d-flex flex-row justify-content-around ">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">CompanyName</label>
+                        <select class="form-select" style="margin-top:0px;width:500px;height:46px;" id="CompanyID" name="CompanyID" asp-for="@Model.CompanyID">
+                            <option value="" class="" style="font-family:monospace;"></option>
+                            @foreach (CompanyModel CompanyName in ViewBag.Companylist)
+                            {
+                                <option value="@CompanyName.CompanyID">@CompanyName.CompanyName</option>
+                            }
+                        </select>
+                        <span asp-validation-for="@Model.CompanyID" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">Purchase Price</label>
+                        <input type="text" class="form-control" value="@Model.PurchasePrice" asp-for="PurchasePrice" />
+                        <span asp-validation-for="PurchasePrice" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row d-flex flex-row justify-content-around ">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">TexAmount</label>
+                        <input type="text" class="form-control" value="@Model.TexAmount" asp-for="TexAmount" />
+                        <span asp-validation-for="TexAmount" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">Selling Price</label>
+                        <input type="text" class="form-control" value="@Model.SellingPrice" asp-for="SellingPrice" />
+                        <span asp-validation-for="SellingPrice" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex flex-row justify-content-around ">
+ 
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">Availables</label>
+                        <input type="text" class="form-control" value="@Model.Availables" asp-for="Availables" placeholder="Availables" />
+                        <span asp-validation-for="Availables" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group row ">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" style="height:auto" value="@Model.Description" asp-for="Description"></textarea>
+                        <span asp-validation-for="Description" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row d-flex flex-row"  style="margin-left:72px">
+                <input type="hidden" name="ProductID" value="@Model.ProductID" />
+                <button type="submit" value="Save" class="btn bg-primary text-white mb-2 mt-3">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

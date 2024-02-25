@@ -1,0 +1,57 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.Data;
+@model DataTable;
+
+<div class="d-flex flex-row justify-content-between" style="margin-bottom:20px">
+
+
+    <div class="pagetitle">
+        <h3>Company List</h3>
+    </div>
+
+    <div>
+        <a class="btn bg-success text-white" asp-area="MST_Company" asp-controller="Company" asp-action="CompanyAddEdit">Add</a>
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-body">
+
+        <table class="table table-light table-striped table-borderless text-center mt-3">
+            <thead class="table-light">
+            <th>Company Name</th>
+            <th>Contact Number</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th colspan="2">Action</th>
+            </thead>
+            <tbody id="sample_2">
+                @foreach (DataRow dr in Model.Rows)
+                {
+                    <tr>
+                        <form method="post" asp-action="MST_Company" asp-controller="Company" asp-action="CompanySelectByID">
+                            <input type="hidden" name="CompanyID" value="@int.Parse(dr["CompanyID"].ToString())" />
+                        </form>
+                        <td>@dr["CompanyName"]</td>
+                        <td>@dr["ContactNumber"]</td>
+                        <td>@dr["Email"]</td>
+                        <td>@dr["Address"]</td>
+                        <td>
+                            <form method="post" asp-area="MST_Company" asp-controller="Company" asp-action="CompanyAddEdit" asp-route-CompanyID="@dr["CompanyID"]">
+                                <button type="submit" value="Edit" class="btn bg-warning text-dark align-text-center pr-7 pl-7">Edit</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

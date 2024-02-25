@@ -1,0 +1,60 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.Data;
+@model DataTable;
+
+
+<div class="d-flex flex-row justify-content-between" style="margin-bottom:20px">
+
+    <div class="pagetitle">
+        <h3>Customer List</h3>
+    </div>
+
+    <div>
+        <a class="btn bg-success text-white" asp-area="MST_Customer" asp-controller="Customer" asp-action="CustomerAddEdit">Add</a>
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-body">
+
+        <table class="table table-light table-striped table-borderless text-center mt-3">
+            <thead class="table-light">
+            <th>Customer Name</th>
+            <th>Contact Number</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th colspan="2">Action</th>
+            </thead>
+            <tbody id="sample_2">
+                @foreach (DataRow dr in Model.Rows)
+                {
+                    <tr>
+
+                        <td>@dr["CustomerName"]</td>
+                        <td>@dr["ContactNumber"]</td>
+                        <td>@dr["Email"]</td>
+                        <td>@dr["Address"]</td>
+                        <td>
+                            <form method="post" asp-area="MST_Customer" asp-controller="Customer" asp-action="CustomerAddEdit" asp-route-CustomerID="@dr["CustomerID"]">
+                                <button type="submit" value="Edit" class="btn bg-warning text-dark align-text-center pr-7 pl-7">Edit</button>
+                            </form>
+
+                        </td>
+       
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+

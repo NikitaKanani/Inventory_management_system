@@ -1,0 +1,74 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using Inventory_management_system.Areas.SEC_User.Models;
+@model SEC_UserModel
+
+<div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-center auth px-0">
+            <div class="row w-100 mx-0">
+                <div class="col-md-6 mx-auto">
+                    <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+                        <div class="brand-logo">
+                            <img src="../../images/logo.svg" alt="logo">
+                        </div>
+                        <h4>New here?</h4>
+                        <h6 class="font-weight-light mb-5">Signing up is easy. It only takes a few steps</h6>
+                        <form asp-area="SEC_User" asp-controller="SEC_User" asp-action="Register">
+
+
+                            <div class="row">
+                                <div class="form-group col-md-6 mb-2">
+                                    <input type="text" id="inputUserName" class="form-control form-control-lg" asp-for="UserName" placeholder="Username">
+                                    <span asp-validation-for="UserName" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                                </div>
+                                <div class="form-group col-md-6 mb-2">
+                                    <input type="email" asp-for="Email" class="form-control form-control-lg" id="inputEmail4" placeholder="Email">
+                                    <span asp-validation-for="Email" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-6 my-2">
+                                    <input type="text" asp-for="FirstName" id="firstname" class="form-control form-control-lg" placeholder="Firstname">
+                                    <span asp-validation-for="FirstName" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                                </div>
+                                <div class="form-group col-md-6 my-2">
+                                    <input type="text" asp-for="LastName" id="lastname" class="form-control  form-control-lg" placeholder="Lastname">
+                                    <span asp-validation-for="LastName" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="form-group col-md-6 my-2">
+                                    <input type="text" asp-for="MobileNo" id="mobileNo" class="form-control form-control-lg" placeholder="Mobile Number">
+                                    <span asp-validation-for="MobileNo" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                                </div>
+                                <div class="form-group col-md-6 my-2">
+                                    <input type="password" class="form-control form-control-lg" asp-for="Password" id="inputPassword5" placeholder="Create Password">
+                                    <span asp-validation-for="Password" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

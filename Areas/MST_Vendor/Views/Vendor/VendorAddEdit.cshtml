@@ -1,0 +1,96 @@
+﻿@using System.Data
+@using Inventory_management_system.Areas.MST_Company.Models;
+@using Inventory_management_system.Areas.MST_Vendor.Models;
+@model VendorModel;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex flex-row justify-content-between" style="margin-bottom:20px">
+
+    <div class="pagetitle">
+        <h3>Vendor Add & Edit</h3>
+    </div>
+</div>
+
+
+<div class="card">
+
+    <div class="card-body">
+
+        <form class="form-sample mt-4" method="post" asp-area="MST_Vendor" asp-controller="Vendor" asp-action="VendorAddEditMethod">
+            @Html.HiddenFor(x=>x.VendorID)
+            <div class="row d-lg-flex flex-row justify-content-around ">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">VendorName</label>
+                        <input type="text" class="form-control" value="@Model.VendorName" asp-for="VendorName" />
+                        <span asp-validation-for="VendorName" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">CompanyName</label>
+                        <select class="form-select" style="margin-top:0px;width:500px;height:46px;" id="CompanyID" name="CompanyID" asp-for="@Model.CompanyID">
+                            <option value="" class="" style="font-family:monospace;">- - - </option>
+                            @foreach (CompanyModel CompanyName in ViewBag.Companylist)
+                            {
+                                <option value="@CompanyName.CompanyID">@CompanyName.CompanyName</option>
+                            }
+                        </select>
+                        <span asp-validation-for="@Model.CompanyID" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="row d-flex flex-row justify-content-around ">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">ContactNumber</label>
+                        <input type="text" class="form-control" value="@Model.ContactNumber" asp-for="ContactNumber" />
+                        <span asp-validation-for="ContactNumber" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">Email</label>
+                        <input type="text" class="form-control" value="@Model.Email" asp-for="Email" />
+                        <span asp-validation-for="Email" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex flex-row justify-content-around ">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="form-label">Address</label>
+                        <input type="text" class="form-control" value="@Model.Address" asp-for="Address" />
+                        <span asp-validation-for="Address" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex flex-row" style="margin-left:72px">
+                <input type="hidden" name="VendorID" value="@Model.VendorID" />
+                <button type="submit" value="Save" class="btn bg-primary text-white mb-2 mt-3">Save</button>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+

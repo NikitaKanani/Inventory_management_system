@@ -1,0 +1,70 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.Data;
+@model DataTable;
+
+
+<div class="d-flex flex-row justify-content-between" style="margin-bottom:20px">
+
+    <div class="pagetitle">
+        <h3>Purchase List</h3>
+    </div>
+
+    <div>
+        <a class="btn bg-success text-white" asp-area="MST_Purchase" asp-controller="Purchase" asp-action="PurchaseAddEdit">Add</a>
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-body">
+
+        <table class="table table-light table-striped table-borderless text-center mt-3  table-responsive">
+            <thead class="table-light">
+            <th>Purchase Date</th>
+            <th>Vendor Name</th>
+            <th>Company Name</th>
+            <th>Total Amount</th>
+            <th>Payment Status</th>
+            <th>DueDate</th>
+            <th colspan="2">Action</th>
+            </thead>
+            <tbody id="sample_2">
+                @foreach (DataRow dr in Model.Rows)
+                {
+                    <tr>
+
+                        <td>@dr["PurchaseDate"]</td>
+                        <td>@dr["VendorName"]</td>
+                        <td>@dr["CompanyName"]</td>
+                        <td>@dr["TotalAmount"]</td>
+                        <td>@dr["PaymentStatus"]</td>
+                        <td>@dr["DueDate"]</td>
+                        <td>
+                            <form method="post" asp-area="MST_Purchase" asp-controller="Purchase" asp-action="PurchaseAddEdit" asp-route-PurchaseID="@dr["PurchaseID"]">
+                                <button type="submit" value="Edit" class="btn bg-warning text-dark align-text-center pr-7 pl-7">Edit</button>
+                            </form>
+
+                        </td>
+                        <td>
+                            <form method="post" asp-area="MST_PurchaseItem" asp-controller="PurchaseItem" asp-action="PurchaseItemSelectByPurchaseID" asp-route-PurchaseID="@dr["PurchaseID"]">
+                                <button type="submit" value="view" class="btn bg-info text-dark align-text-center pr-7 pl-7">View</button>
+                            </form>
+
+                        </td>
+
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+

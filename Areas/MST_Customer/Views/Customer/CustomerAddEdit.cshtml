@@ -1,0 +1,70 @@
+﻿@using System.Data
+@using Inventory_management_system.Areas.MST_Customer.Models;
+@model CustomerModel;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex flex-row justify-content-between" style="margin-bottom:20px">
+
+    <div class="pagetitle">
+        <h3>Customer Add & Edit</h3>
+    </div>
+</div>
+
+
+<div class="card">
+
+    <div class="card-body">
+
+        <form class="form-sample mt-4" method="post" asp-area="MST_Customer" asp-controller="Customer" asp-action="CustomerAddEditMethod">
+            <div class="row d-flex flex-row justify-content-around ">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">Customer Name</label>
+                        <input type="text" class="form-control" value="@Model.CustomerName" asp-for="CustomerName" />
+                        <span asp-validation-for="CustomerName" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">Contact Number</label>
+                        <input type="text" class="form-control" value="@Model.ContactNumber" asp-for="ContactNumber" />
+                        <span asp-validation-for="ContactNumber" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex flex-row justify-content-around">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">Email</label>
+                        <input type="text" class="form-control" value="@Model.Email" asp-for="Email" />
+                        <span asp-validation-for="Email" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="form-label">Address</label>
+                        <input type="text" class="form-control" value="@Model.Address" asp-for="Address" />
+                        <span asp-validation-for="Address" class="font-green-sharp" style="font-size:13px ; color:red"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex flex-row" style="margin-left:72px">
+                <input type="hidden" name="CustomerID" value="@Model.CustomerID" />
+                <button type="submit" value="Save" class="btn bg-primary text-white mb-2 mt-3">Save</button>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
